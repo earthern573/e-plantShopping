@@ -297,7 +297,28 @@ const handlePlantsClick = (e) => {
                         {/*Similarly like the above plant.name show other details like description and cost*/}
                         <div className="product-description">{plant.description}</div>
                         <div className="product-cost">{plant.cost}</div>
-                        <button  className="product-button" onClick={() => handleAddToCart(plant)}>Add to Cart</button>
+                        {/* <button  className="product-button" onClick={() => handleAddToCart(plant)}>Add to Cart</button> */} 
+                        {/* <button  className="product-button" onClick={() => handleAddToCart(plant)} style={{ backgroundColor: addedToCart[plant.name] ? 'grey' : '#4CAF50' }}>{addedToCart[plant.name] ? "Successfully, Added to Cart" : "Add to Cart"}</button> */}
+                        <button className="product-button" 
+                                onClick={() => {
+                                    if (!addedToCart[plant.name]) {
+                                        dispatch(addItem(plant));
+                                        setAddedToCart((prevState) => ({
+                                            ...prevState,
+                                            [plant.name]: true
+                                        }));
+
+                                        // Simple timeout to revert button after 1 second
+                                    setTimeout(() => {
+                                        setAddedToCart((prevState) => ({
+                                            ...prevState,
+                                            [plant.name]: false
+                                        }));
+                                    }, 500);
+                                    }
+                                }}
+                                style={{ backgroundColor: addedToCart[plant.name] ? 'grey' : '#4CAF50', cursor: 'pointer' }}
+                        > {addedToCart[plant.name] ? "Added to Cart" : "Add to Cart"} </button>
                     </div>
                     ))}
                 </div>
