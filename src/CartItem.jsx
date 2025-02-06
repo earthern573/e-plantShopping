@@ -7,6 +7,10 @@ const CartItem = ({ onContinueShopping }) => {
   const cart = useSelector(state => state.cart.items);
   const dispatch = useDispatch();
 
+ const parseItemCostToInteger = (itemCost) => {
+    return parseInt(itemCost.replace('$', ''), 10);
+    };
+
   // Calculate total amount for all products in the cart
   const calculateTotalAmount = () => {
     let totalCost = 0;
